@@ -31,6 +31,7 @@ module.exports = function(grunt) {
 		browserName: 'opera',
 		version: '12'
 	}];
+	var sauceAuth = grunt.file.readJSON('saucelabs_auth.json');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -48,8 +49,8 @@ module.exports = function(grunt) {
 
 		'saucelabs-qunit': {
 			all: {
-				//username: 'parashu',
-				//key: '',
+				username: sauceAuth.username,
+				key: sauceAuth.key,
 				urls: ['http://127.0.0.1:9999/qunit/lists-plugin.html', 'http://127.0.0.1:9999/qunit/twitter-plugin.html'],
 				tunnelTimeout: 5,
 				build: process.env.TRAVIS_JOB_ID,
@@ -59,8 +60,8 @@ module.exports = function(grunt) {
 		},
 		'saucelabs-jasmine': {
 			all: {
-				//username: 'parashu',
-				//key: '',
+				username: sauceAuth.username,
+				key: sauceAuth.key,
 				urls: ['http://127.0.0.1:9999/jasmine/SpecRunner.html', 'http://127.0.0.1:9999/jasmine/SpecRunnerDos.html'],
 				tunnelTimeout: 5,
 				build: process.env.TRAVIS_JOB_ID,
